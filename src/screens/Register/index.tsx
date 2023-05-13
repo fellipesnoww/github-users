@@ -17,7 +17,7 @@ import {
   UnderlinedDescription,
 } from './styles';
 
-export default function Home() {
+export default function Register() {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
 

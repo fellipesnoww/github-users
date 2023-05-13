@@ -8,7 +8,7 @@ interface ButtonProps extends TouchableOpacityProps {
   loading?: boolean;
 }
 
-export default function Home({
+export default function Button({
   text,
   loading = false,
   disabled,
