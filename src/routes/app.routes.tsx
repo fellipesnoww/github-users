@@ -10,9 +10,9 @@ const Stack = createNativeStackNavigator();
 
 function AppRoutes() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Repository" component={Repository} />
     </Stack.Navigator>
   );

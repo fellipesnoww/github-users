@@ -1,5 +1,6 @@
 import {FlatList, Platform} from 'react-native';
 import styled from 'styled-components/native';
+import {UserDTO} from '../../dtos/UserDTO';
 
 export const Container = styled.View`
   justify-content: flex-start;
@@ -10,4 +11,4 @@ export const Container = styled.View`
   padding-top: ${Platform.OS === 'android' ? '10px' : '40px'};
 `;
 
-export const UserList = styled(FlatList<any>).attrs({})``;
+export const UserList = styled(FlatList<UserDTO>).attrs({})``;

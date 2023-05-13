@@ -19,24 +19,29 @@ import {
   UserIdentifier,
   Username,
 } from './styles';
+import {UserDTO} from '../../dtos/UserDTO';
 
-export default function UserCard() {
+interface UserCardProps {
+  user: UserDTO;
+}
+
+export default function UserCard({user}: UserCardProps) {
   return (
     <Container>
       <UserBasicInfo>
         <TextContent>
           <Avatar
             source={{
-              uri: 'https://avatars.githubusercontent.com/u/48105194?v=4',
+              uri: user.avatar_url,
             }}
             resizeMode="contain"
           />
           <UserIdentifier>
             <NameData>
-              <Name>John Doe Santos</Name>
+              <Name>{user.name}</Name>
               <ArrowRight />
             </NameData>
-            <Username>@johndoesantos</Username>
+            <Username>{user.login}</Username>
           </UserIdentifier>
         </TextContent>
         <DeleteButton>
@@ -46,15 +51,15 @@ export default function UserCard() {
       <UserAbout>
         <About>
           <Business />
-          <AboutDescription>GO.K Digital</AboutDescription>
+          <AboutDescription>{user.company}</AboutDescription>
         </About>
         <About>
           <Place />
-          <AboutDescription>São Paulo, Brazil</AboutDescription>
+          <AboutDescription>{user.location}</AboutDescription>
         </About>
         <About>
           <Star />
-          <AboutDescription>2</AboutDescription>
+          <AboutDescription>{user.followers}</AboutDescription>
         </About>
       </UserAbout>
     </Container>

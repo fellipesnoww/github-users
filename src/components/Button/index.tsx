@@ -18,7 +18,7 @@ export default function Button({
   return (
     <Container disabled={disabled || loading} {...props}>
       {loading ? (
-        <ActivityIndicator color={theme.colors.background} />
+        <ActivityIndicator color={theme.colors.primary} />
       ) : (
         <Text>{text}</Text>
       )}

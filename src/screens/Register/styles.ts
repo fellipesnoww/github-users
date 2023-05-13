@@ -51,4 +51,5 @@ export const Footer = styled.View`
   justify-content: center;
   width: 100%;
   flex-direction: row;
+  background-color: ${({theme}) => theme.colors.background};
 `;
