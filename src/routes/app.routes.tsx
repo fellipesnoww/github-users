@@ -6,12 +6,23 @@ import Home from '../screens/Home';
 import Register from '../screens/Register';
 import Repository from '../screens/Repository';
 import ModalRegister from '../screens/Register/ModalRegister';
+import {useUsers} from '../hooks/useUsers';
 
 const Stack = createNativeStackNavigator();
 
 function AppRoutes() {
+  const {users, loadingUsers} = useUsers();
+
+  if (loadingUsers) {
+    return <></>; // Todo create a SplashScreen or LoadScreen
+  }
+
+  const initialRouteName = users.length > 0 ? 'Home' : 'Register';
+
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName={initialRouteName}>
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Repository" component={Repository} />
