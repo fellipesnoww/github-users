@@ -7,7 +7,7 @@ export const Container = styled.View`
   align-items: flex-start;
   width: 100%;
   flex: 1;
-  padding-top: 40px;
+  padding-top: ${Platform.OS === 'android' ? '10px' : '40px'};
 `;
 
 export const RepositoriesList = styled(FlatList<any>).attrs({})``;

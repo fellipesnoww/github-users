@@ -1,4 +1,4 @@
-import {FlatList} from 'react-native';
+import {FlatList, Platform} from 'react-native';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
@@ -7,7 +7,7 @@ export const Container = styled.View`
   align-items: flex-start;
   width: 100%;
   flex: 1;
-  padding-top: 40px;
+  padding-top: ${Platform.OS === 'android' ? '10px' : '40px'};
 `;
 
 export const UserList = styled(FlatList<any>).attrs({})``;
