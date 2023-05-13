@@ -16,14 +16,23 @@ import {
   Footer,
   UnderlinedDescription,
 } from './styles';
+import {useNavigation} from '@react-navigation/native';
+import {useUsers} from '../../hooks/useUsers';
 
 export default function Register() {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
+  const {addUser} = useUsers();
+  const navigation = useNavigation();
+
+  function navigateToHome() {
+    setLoading(false);
+    navigation.navigate('Home');
+  }
 
   function handleAddNewUser() {
     setLoading(true);
-    console.log(username);
+    addUser(username, navigateToHome, () => setLoading(false));
   }
 
   return (

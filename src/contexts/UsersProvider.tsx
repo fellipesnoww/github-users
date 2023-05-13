@@ -2,12 +2,16 @@ import React, {createContext, useEffect, useState} from 'react';
 import {UserDTO} from '../dtos/UserDTO';
 import {USERS_STORAGE_KEY} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {apiCall} from '../services/api';
 import {Alert} from 'react-native';
+import {apiCall} from '../services/api';
 
 interface UsersContextData {
   users: UserDTO[];
-  addUser: (login: string) => Promise<void>;
+  addUser: (
+    login: string,
+    successCallback?: () => void,
+    errorCallback?: () => void,
+  ) => Promise<void>;
   removeUser: (id: number) => Promise<void>;
 }
 
@@ -35,21 +39,38 @@ function UsersProvider({children}: UsersProviderData) {
     return users.some(user => user.login === login);
   }
 
-  async function addUser(login: string): Promise<void> {
+  async function addUser(
+    login: string,
+    successCallback?: () => void,
+    errorCallback?: () => void,
+  ): Promise<void> {
     if (!checkUserAlreadyAdded(login)) {
       const githubResponse = await apiCall<UserDTO>({
-        baseURL: `users/${login}`,
+        url: `users/${login}`,
         method: 'GET',
       });
 
       if (githubResponse.success) {
-        setUsers([...users, githubResponse.data]);
-        await AsyncStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+        const newUserList = [...users, githubResponse.data];
+        setUsers(newUserList);
+        await AsyncStorage.setItem(
+          USERS_STORAGE_KEY,
+          JSON.stringify(newUserList),
+        );
+        if (successCallback) {
+          successCallback();
+        }
       } else {
         Alert.alert('Erro', githubResponse.message);
+        if (errorCallback) {
+          errorCallback();
+        }
       }
     } else {
       Alert.alert('Atenção', 'Esse usuário ja foi adicionado');
+      if (errorCallback) {
+        errorCallback();
+      }
     }
   }
 
