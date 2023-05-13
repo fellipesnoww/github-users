@@ -54,7 +54,10 @@ export default function UserCard({user}: UserCardProps) {
   }
 
   function navigateToRepositories() {
-    navigation.navigate('Repository', {login: user.login});
+    navigation.navigate('Repository', {
+      login: user.login,
+      avatar_url: user.avatar_url,
+    });
   }
 
   return (
@@ -69,7 +72,7 @@ export default function UserCard({user}: UserCardProps) {
           />
           <UserIdentifier>
             <NameData>
-              <Name>{user.name}</Name>
+              <Name>{user.name ? user.name : user.login}</Name>
               <ArrowRight />
             </NameData>
             <Username>{user.login}</Username>
@@ -82,11 +85,15 @@ export default function UserCard({user}: UserCardProps) {
       <UserAbout>
         <About>
           <Business />
-          <AboutDescription>{user.company}</AboutDescription>
+          <AboutDescription>
+            {user.company ? user.company : '-'}
+          </AboutDescription>
         </About>
         <About>
           <Place />
-          <AboutDescription>{user.location}</AboutDescription>
+          <AboutDescription>
+            {user.location ? user.location : '-'}
+          </AboutDescription>
         </About>
         <About>
           <Star />
