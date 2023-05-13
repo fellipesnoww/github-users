@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/Home';
 import Register from '../screens/Register';
 import Repository from '../screens/Repository';
-import ModalRegister from '../screens/Home/ModalRegister';
+import ModalRegister from '../screens/Register/ModalRegister';
 
 const Stack = createNativeStackNavigator();
 
