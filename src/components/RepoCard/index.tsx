@@ -15,8 +15,10 @@ import {
   RepoDetails,
   RepoName,
   StarButton,
+  TopicList,
 } from './styles';
 import {RepositoryDTO} from '../../dtos/RepositoryDTO';
+import {Topic, TypeAction} from '../Topic';
 
 interface RepoCardProps {
   repository: RepositoryDTO;
@@ -27,7 +29,7 @@ export default function RepoCard({repository}: RepoCardProps) {
     <Container>
       <InlineContent>
         <RepoName>
-          <Name>{repository.full_name}</Name>
+          <Name>{repository.name}</Name>
           <ArrowRight />
         </RepoName>
         <StarButton>
@@ -35,6 +37,13 @@ export default function RepoCard({repository}: RepoCardProps) {
         </StarButton>
       </InlineContent>
       <AboutRepo>{repository.description}</AboutRepo>
+      {repository.topics.length > 0 && (
+        <TopicList>
+          {repository.topics.map(topic => (
+            <Topic name={topic} typeAction={TypeAction.none} key={topic} />
+          ))}
+        </TopicList>
+      )}
       <RepoDetails>
         <Detail removeMargin>
           <Language width={16} height={16} />

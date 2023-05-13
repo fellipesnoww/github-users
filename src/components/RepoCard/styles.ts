@@ -76,3 +76,12 @@ export const DetailName = styled.Text`
   font-family: ${({theme}) => theme.fonts.primary.regular};
   margin-left: 4px;
 `;
+
+export const TopicList = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-vertical: 8px;
+  flex-wrap: wrap;
+`;
