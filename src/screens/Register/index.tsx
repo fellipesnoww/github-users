@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import GitLogo from '../../assets/github_logo.png';
+import BackArrow from '../../assets/icons/arrow_back.svg';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import {
@@ -15,11 +16,16 @@ import {
   Description,
   Footer,
   UnderlinedDescription,
+  BackButton,
 } from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {useUsers} from '../../hooks/useUsers';
 
-export default function Register() {
+interface RegisterProps {
+  showBackAction?: boolean;
+}
+
+export default function Register({showBackAction = false}: RegisterProps) {
   const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const {addUser} = useUsers();
@@ -35,6 +41,10 @@ export default function Register() {
     addUser(username, navigateToHome, () => setLoading(false));
   }
 
+  function handleCloseModal() {
+    navigation.goBack();
+  }
+
   return (
     <>
       <KeyboardAvoidingView
@@ -46,6 +56,11 @@ export default function Register() {
         behavior="height">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
+            {showBackAction && (
+              <BackButton onPress={handleCloseModal}>
+                <BackArrow />
+              </BackButton>
+            )}
             <LogoContainer>
               <Logo source={GitLogo} />
             </LogoContainer>

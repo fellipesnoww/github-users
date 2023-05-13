@@ -3,11 +3,16 @@ import Button from '../Button';
 import GitLogo from '../../assets/github_logo.png';
 import {Container, Logo} from './styles';
 
-export default function Header() {
+interface HeaderProps {
+  buttonAction: () => void;
+  textButton: string;
+}
+
+export default function Header({buttonAction, textButton}: HeaderProps) {
   return (
     <Container>
       <Logo source={GitLogo} />
-      <Button text="Adicionar novo" style={{width: 155}} />
+      <Button text={textButton} style={{width: 155}} onPress={buttonAction} />
     </Container>
   );
 }
