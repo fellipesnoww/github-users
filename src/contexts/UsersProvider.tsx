@@ -13,6 +13,7 @@ interface UsersContextData {
     errorCallback?: () => void,
   ) => Promise<void>;
   removeUser: (id: number) => Promise<void>;
+  loadingUsers: boolean;
 }
 
 interface UsersProviderData {
@@ -23,12 +24,14 @@ const UsersContext = createContext<UsersContextData>({} as UsersContextData);
 
 function UsersProvider({children}: UsersProviderData) {
   const [users, setUsers] = useState<UserDTO[]>([]);
+  const [loadingUsers, setLoadingUsers] = useState(true);
 
   async function getStorageUsers() {
     const storageUsers = await AsyncStorage.getItem(USERS_STORAGE_KEY);
     if (storageUsers) {
       setUsers(JSON.parse(storageUsers) as UserDTO[]);
     }
+    setLoadingUsers(false);
   }
 
   useEffect(() => {
@@ -84,7 +87,7 @@ function UsersProvider({children}: UsersProviderData) {
   }
 
   return (
-    <UsersContext.Provider value={{users, addUser, removeUser}}>
+    <UsersContext.Provider value={{users, addUser, removeUser, loadingUsers}}>
       {children}
     </UsersContext.Provider>
   );

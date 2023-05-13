@@ -4,6 +4,8 @@ import Header from '../../components/Header';
 import UserCard from '../../components/UserCard';
 import {useUsers} from '../../hooks/useUsers';
 import {useNavigation} from '@react-navigation/native';
+import EmptyList from '../../components/EmptyList';
+import {View} from 'react-native';
 
 export default function Home() {
   const {users} = useUsers();
@@ -21,8 +23,11 @@ export default function Home() {
       />
       <UserList
         data={users}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.id.toString()}
         renderItem={({item}) => <UserCard user={item} />}
+        ListEmptyComponent={
+          <EmptyList message="Você ainda não adicionou nenhum usuário" />
+        }
       />
     </Container>
   );

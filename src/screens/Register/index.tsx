@@ -32,6 +32,7 @@ export default function Register({showBackAction = false}: RegisterProps) {
   const navigation = useNavigation();
 
   function navigateToHome() {
+    Keyboard.dismiss();
     setLoading(false);
     navigation.navigate('Home');
   }

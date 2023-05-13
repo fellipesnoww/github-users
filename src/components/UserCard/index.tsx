@@ -20,14 +20,45 @@ import {
   Username,
 } from './styles';
 import {UserDTO} from '../../dtos/UserDTO';
+import {useUsers} from '../../hooks/useUsers';
+import {Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 interface UserCardProps {
   user: UserDTO;
 }
 
 export default function UserCard({user}: UserCardProps) {
+  const {removeUser} = useUsers();
+  const navigation = useNavigation();
+
+  function handleRemoveUser() {
+    Alert.alert(
+      'Atenção',
+      `Deseja remover ${user.login} da lista de usuários?`,
+      [
+        {
+          style: 'cancel',
+          text: 'Não',
+          onPress: () => {},
+        },
+        {
+          style: 'destructive',
+          text: 'Sim',
+          onPress: () => {
+            removeUser(user.id);
+          },
+        },
+      ],
+    );
+  }
+
+  function navigateToRepositories() {
+    navigation.navigate('Repository', {login: user.login});
+  }
+
   return (
-    <Container>
+    <Container onPress={navigateToRepositories}>
       <UserBasicInfo>
         <TextContent>
           <Avatar
@@ -44,7 +75,7 @@ export default function UserCard({user}: UserCardProps) {
             <Username>{user.login}</Username>
           </UserIdentifier>
         </TextContent>
-        <DeleteButton>
+        <DeleteButton onPress={handleRemoveUser}>
           <Delete />
         </DeleteButton>
       </UserBasicInfo>

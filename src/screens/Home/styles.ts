@@ -11,4 +11,9 @@ export const Container = styled.View`
   padding-top: ${Platform.OS === 'android' ? '10px' : '40px'};
 `;
 
-export const UserList = styled(FlatList<UserDTO>).attrs({})``;
+export const UserList = styled(FlatList<UserDTO>).attrs({})`
+  flex: 1;
+  width: 100%;
+  background-color: ${({theme}) => theme.colors.shade};
+  padding-horizontal: 16px;
+`;
