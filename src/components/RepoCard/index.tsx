@@ -16,38 +16,41 @@ import {
   RepoName,
   StarButton,
 } from './styles';
+import {RepositoryDTO} from '../../dtos/RepositoryDTO';
 
-export default function RepoCard() {
+interface RepoCardProps {
+  repository: RepositoryDTO;
+}
+
+export default function RepoCard({repository}: RepoCardProps) {
   return (
     <Container>
       <InlineContent>
         <RepoName>
-          <Name>project-name-java</Name>
+          <Name>{repository.full_name}</Name>
           <ArrowRight />
         </RepoName>
         <StarButton>
           <Star width={16} height={16} />
         </StarButton>
       </InlineContent>
-      <AboutRepo>
-        Project application with component app with React Native.
-      </AboutRepo>
+      <AboutRepo>{repository.description}</AboutRepo>
       <RepoDetails>
         <Detail removeMargin>
           <Language width={16} height={16} />
-          <DetailName>React Native</DetailName>
+          <DetailName>{repository.language}</DetailName>
         </Detail>
         <Detail>
           <Star width={16} height={16} />
-          <DetailName>5</DetailName>
+          <DetailName>{repository.stargazers_count}</DetailName>
         </Detail>
         <Detail>
           <SupervisorAccount width={16} height={16} />
-          <DetailName>2</DetailName>
+          <DetailName>{repository.watchers_count}</DetailName>
         </Detail>
         <Detail>
           <AccessTime width={16} height={16} />
-          <DetailName>2 dias atras</DetailName>
+          <DetailName>{repository.updated_at}</DetailName>
         </Detail>
       </RepoDetails>
     </Container>
