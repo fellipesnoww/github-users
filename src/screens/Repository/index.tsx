@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, RepositoriesList, SearchArea} from './styles';
 import HeaderWithUser from '../../components/HeaderWithUser';
 import RepoCard from '../../components/RepoCard';
@@ -8,6 +8,7 @@ import {RepositoryDTO} from '../../dtos/RepositoryDTO';
 import EmptyList from '../../components/EmptyList';
 import Loader from '../../components/Loader';
 import InputSearch from '../../components/Search/Input';
+import FilterButton from '../../components/Search/FilterButton';
 
 interface RepositoryRouteParams {
   login: string;
@@ -18,13 +19,6 @@ export default function Repository() {
   const [loading, setLoading] = useState(true);
   const [repositories, setRepositories] = useState<RepositoryDTO[]>([]);
   const [repositoriesCopy, setRepositoriesCopy] = useState<RepositoryDTO[]>([]);
-  const [focusedInput, setFocusedInput] = useState<'filter' | 'search'>(
-    'search',
-  );
-
-  const searchInputRef = useRef<InputSearch>();
-  const filterInputRef = useRef<InputSearch>();
-
   const route = useRoute();
   const {login, avatar_url} = route.params as RepositoryRouteParams;
 
@@ -57,39 +51,16 @@ export default function Repository() {
     return <Loader message="Procurando repositórios..." />;
   }
 
-  function handleFocusSearch() {
-    filterInputRef.current?.blur();
-    searchInputRef.current?.focus();
-    setFocusedInput('search');
-  }
-
-  function handleFocusFilter() {
-    searchInputRef.current?.blur();
-    filterInputRef.current?.focus();
-    setFocusedInput('filter');
-  }
-
   return (
     <Container>
       <HeaderWithUser avatar_url={avatar_url} />
       <SearchArea>
         <InputSearch
-          ref={searchInputRef}
           icon="search"
           placeholder="Buscar um repositório..."
           onChangeText={name => filterRepositories(name)}
-          isFocused={focusedInput === 'search'}
-          focusAction={handleFocusSearch}
-          onFocus={handleFocusSearch}
         />
-        <InputSearch
-          ref={filterInputRef}
-          icon="filter"
-          onChangeText={name => filterRepositories(name)}
-          isFocused={focusedInput === 'filter'}
-          focusAction={handleFocusFilter}
-          onFocus={handleFocusFilter}
-        />
+        <FilterButton />
       </SearchArea>
       <RepositoriesList
         data={repositoriesCopy}

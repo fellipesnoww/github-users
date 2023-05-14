@@ -8,39 +8,19 @@ import {TextInputProperties} from 'react-native';
 
 interface InputProps extends TextInputProperties {
   icon?: 'search' | 'filter';
-  isFocused?: boolean;
-  focusAction: (e: any) => void;
 }
 
-const InputSearch = React.forwardRef((props, ref) => {
+export default function InputSearch({icon = 'search', ...props}: InputProps) {
   const theme = useTheme();
-
   return (
-    <Container isFocused={props.isFocused} onPress={props.focusAction}>
-      {props.icon === 'search' ? (
+    <Container>
+      {icon === 'search' ? (
         <SearchIcon width={24} height={24} />
       ) : (
         <FilterIcon width={24} height={24} />
       )}
-      {props.isFocused && (
-        <TextInput
-          placeholderTextColor={theme.colors.secondary}
-          {...props}
-          ref={ref}
-          isFocused={props.isFocused}
-        />
-      )}
+
+      <TextInput placeholderTextColor={theme.colors.secondary} {...props} />
     </Container>
   );
-});
-
-export default InputSearch;
-
-// export default function InputSearch({
-//   icon = 'search',
-//   isFocused = false,
-//   focusAction,
-//   ...props
-// }: InputProps) {
-
-// }
+}
