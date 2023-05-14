@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ArrowRight from '../../assets/icons/keyboard_arrow_right.svg';
+import YellowStar from '../../assets/icons/yellow_star.svg';
 import Star from '../../assets/icons/star.svg';
 import Language from '../../assets/icons/language.svg';
 import SupervisorAccount from '../../assets/icons/supervisor_account.svg';
@@ -33,7 +34,7 @@ export default function RepoCard({repository}: RepoCardProps) {
           <ArrowRight />
         </RepoName>
         <StarButton>
-          <Star width={16} height={16} />
+          <YellowStar width={16} height={16} />
         </StarButton>
       </InlineContent>
       <AboutRepo>{repository.description}</AboutRepo>

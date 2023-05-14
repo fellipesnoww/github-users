@@ -1,4 +1,4 @@
-import {FlatList} from 'react-native';
+import {FlatList, Platform} from 'react-native';
 import styled from 'styled-components/native';
 import {RepositoryDTO} from '../../dtos/RepositoryDTO';
 
@@ -16,4 +16,14 @@ export const RepositoriesList = styled(FlatList<RepositoryDTO>).attrs({})`
   width: 100%;
   background-color: ${({theme}) => theme.colors.shade};
   padding-horizontal: 16px;
+`;
+
+export const SearchArea = styled.View`
+  width: 100%;
+  padding-horizontal: 16px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: ${({theme}) => theme.colors.shade};
+  padding-vertical: 8px;
 `;
