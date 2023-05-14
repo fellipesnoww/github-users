@@ -2,7 +2,11 @@ import {FlatList, Platform} from 'react-native';
 import styled from 'styled-components/native';
 import {RepositoryDTO} from '../../dtos/RepositoryDTO';
 
-export const Container = styled.View`
+interface ContainerProps {
+  modalIsOpen: boolean;
+}
+
+export const Container = styled.View<ContainerProps>`
   justify-content: flex-start;
   background-color: ${({theme}) => theme.colors.background};
   align-items: flex-start;
@@ -26,4 +30,12 @@ export const SearchArea = styled.View`
   justify-content: flex-start;
   background-color: ${({theme}) => theme.colors.shade};
   padding-vertical: 8px;
+`;
+
+export const ModalContent = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-horizontal: 16px;
+  background-color: transparent;
 `;

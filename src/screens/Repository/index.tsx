@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Container, RepositoriesList, SearchArea} from './styles';
+import {Container, ModalContent, RepositoriesList, SearchArea} from './styles';
 import HeaderWithUser from '../../components/HeaderWithUser';
 import RepoCard from '../../components/RepoCard';
 import {useRoute} from '@react-navigation/native';
@@ -9,6 +9,8 @@ import EmptyList from '../../components/EmptyList';
 import Loader from '../../components/Loader';
 import InputSearch from '../../components/Search/Input';
 import FilterButton from '../../components/Search/FilterButton';
+import {Modal} from 'react-native';
+import TopicSelector from '../../components/TopicSelector';
 
 interface RepositoryRouteParams {
   login: string;
@@ -17,6 +19,8 @@ interface RepositoryRouteParams {
 
 export default function Repository() {
   const [loading, setLoading] = useState(true);
+  const [visibleModal, setVisibleModal] = useState(false);
+
   const [repositories, setRepositories] = useState<RepositoryDTO[]>([]);
   const [repositoriesCopy, setRepositoriesCopy] = useState<RepositoryDTO[]>([]);
   const route = useRoute();
@@ -51,8 +55,20 @@ export default function Repository() {
     return <Loader message="Procurando repositórios..." />;
   }
 
+  function handleCancelTopicSelection() {
+    setVisibleModal(false);
+  }
+
+  function handleFilterTopics(topicsToFilter: string[]) {
+    const filteredRepositories = repositoriesCopy.filter(repo =>
+      repo.topics.some(item => topicsToFilter.includes(item)),
+    );
+    setRepositoriesCopy(filteredRepositories);
+    setVisibleModal(false);
+  }
+
   return (
-    <Container>
+    <Container modalIsOpen={visibleModal}>
       <HeaderWithUser avatar_url={avatar_url} />
       <SearchArea>
         <InputSearch
@@ -60,7 +76,7 @@ export default function Repository() {
           placeholder="Buscar um repositório..."
           onChangeText={name => filterRepositories(name)}
         />
-        <FilterButton />
+        <FilterButton onPress={() => setVisibleModal(true)} />
       </SearchArea>
       <RepositoriesList
         data={repositoriesCopy}
@@ -70,6 +86,15 @@ export default function Repository() {
           <EmptyList message="Nenhum repositório encontrado" />
         }
       />
+
+      <Modal visible={visibleModal} transparent animationType="slide">
+        <ModalContent>
+          <TopicSelector
+            cancelAction={handleCancelTopicSelection}
+            confirmAction={topics => handleFilterTopics(topics)}
+          />
+        </ModalContent>
+      </Modal>
     </Container>
   );
 }
