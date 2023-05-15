@@ -50,9 +50,12 @@ export default function TopicSelector({
 
   function applyFilters() {
     if (topicInput) {
-      setSelectedTopics([...selectedTopics, topicInput]);
+      const newTopics = [...selectedTopics, topicInput];
+      setSelectedTopics(newTopics);
+      confirmAction(newTopics);
+    } else {
+      confirmAction(selectedTopics);
     }
-    confirmAction(selectedTopics);
   }
 
   return (
@@ -62,6 +65,7 @@ export default function TopicSelector({
         icon="search"
         style={{width: '100%'}}
         onChangeText={setTopicInput}
+        lightBackground
       />
       <SelectedTopicSection>
         {selectedTopics.map(selectedTopic => (

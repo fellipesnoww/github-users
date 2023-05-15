@@ -8,12 +8,13 @@ import {TextInputProperties} from 'react-native';
 
 interface InputProps extends TextInputProperties {
   icon?: 'search' | 'filter';
+  lightBackground?: boolean;
 }
 
-export default function InputSearch({icon = 'search', ...props}: InputProps) {
+export default function InputSearch({icon = 'search', lightBackground = false, style, ...props}: InputProps) {
   const theme = useTheme();
   return (
-    <Container>
+    <Container lightBackground={lightBackground} style={style}>
       {icon === 'search' ? (
         <SearchIcon width={24} height={24} />
       ) : (

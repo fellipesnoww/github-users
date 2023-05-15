@@ -9,7 +9,7 @@ import EmptyList from '../../components/EmptyList';
 import Loader from '../../components/Loader';
 import InputSearch from '../../components/Search/Input';
 import FilterButton from '../../components/Search/FilterButton';
-import {Modal, View} from 'react-native';
+import {Alert, Modal, View} from 'react-native';
 import TopicSelector from '../../components/TopicSelector';
 
 interface RepositoryRouteParams {
@@ -60,11 +60,36 @@ export default function Repository() {
   }
 
   function handleFilterTopics(topicsToFilter: string[]) {
-    const filteredRepositories = repositoriesCopy.filter(repo =>
-      repo.topics.some(item => topicsToFilter.includes(item)),
-    );
+    const formatedTopics = topicsToFilter.map(t => t.toLowerCase());
+    const filteredRepositories: RepositoryDTO[] = [];
+
+    repositoriesCopy.forEach(repo => {
+      repo.topics.forEach(topic => {
+        if (formatedTopics.includes(topic)) {
+          filteredRepositories.push(repo);
+        }
+      });
+    });
+
     setRepositoriesCopy(filteredRepositories);
     setVisibleModal(false);
+  }
+
+  function handleResetFilters(){
+    Alert.alert("Confirme", "Deseja limpar todos os filtros?" , [
+      {
+        style: "cancel",
+        onPress: () => {},
+        text: "Não"
+      },
+      {
+        style: "default",
+        onPress: () => {
+          setRepositoriesCopy(repositories);
+        },
+        text: "Sim"
+      }
+    ]);
   }
 
   return (
@@ -76,8 +101,12 @@ export default function Repository() {
             icon="search"
             placeholder="Buscar um repositório..."
             onChangeText={name => filterRepositories(name)}
+            style={{width: "85%"}}
           />
-          <FilterButton onPress={() => setVisibleModal(true)} />
+          <FilterButton 
+            onPress={() => setVisibleModal(true)} 
+            onLongPress={handleResetFilters}
+          />
         </SearchArea>
         <RepositoriesList
           data={repositoriesCopy}
