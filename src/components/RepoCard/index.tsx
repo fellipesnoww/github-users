@@ -20,6 +20,7 @@ import {
 } from './styles';
 import {RepositoryDTO} from '../../dtos/RepositoryDTO';
 import {Topic, TypeAction} from '../Topic';
+import moment from 'moment';
 
 interface RepoCardProps {
   repository: RepositoryDTO;
@@ -60,7 +61,7 @@ export default function RepoCard({repository}: RepoCardProps) {
         </Detail>
         <Detail>
           <AccessTime width={16} height={16} />
-          <DetailName>{repository.updated_at}</DetailName>
+          <DetailName>{moment(repository.updated_at).format("DD/MM/YYYY")}</DetailName>
         </Detail>
       </RepoDetails>
     </Container>
