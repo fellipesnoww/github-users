@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* githubusersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* githubusersTests.m */; };
+		0C17027349214E17A5E96017 /* Mulish-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63524796074E48C4A72FB08B /* Mulish-Bold.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-githubusers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-githubusers.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		32D8C051DAD84DAFBB6A0F68 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C264F9A1CB0F4C09A0035833 /* Roboto-Regular.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-githubusers-githubusersTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-githubusers-githubusersTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		0C17027349214E17A5E96017 /* Mulish-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63524796074E48C4A72FB08B /* Mulish-Bold.ttf */; };
 		FEEBE7BA736E47F7B7605566 /* Mulish-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8DC85CCB9BF454E9076458A /* Mulish-Regular.ttf */; };
-		32D8C051DAD84DAFBB6A0F68 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C264F9A1CB0F4C09A0035833 /* Roboto-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,12 +44,12 @@
 		5709B34CF0A7D63546082F79 /* Pods-githubusers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-githubusers.release.xcconfig"; path = "Target Support Files/Pods-githubusers/Pods-githubusers.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-githubusers-githubusersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-githubusers-githubusersTests.debug.xcconfig"; path = "Target Support Files/Pods-githubusers-githubusersTests/Pods-githubusers-githubusersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-githubusers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-githubusers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63524796074E48C4A72FB08B /* Mulish-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Bold.ttf"; path = "../src/assets/fonts/Mulish-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = githubusers/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-githubusers-githubusersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-githubusers-githubusersTests.release.xcconfig"; path = "Target Support Files/Pods-githubusers-githubusersTests/Pods-githubusers-githubusersTests.release.xcconfig"; sourceTree = "<group>"; };
+		C264F9A1CB0F4C09A0035833 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		C8DC85CCB9BF454E9076458A /* Mulish-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Mulish-Regular.ttf"; path = "../src/assets/fonts/Mulish-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		63524796074E48C4A72FB08B /* Mulish-Bold.ttf */ = {isa = PBXFileReference; name = "Mulish-Bold.ttf"; path = "../src/assets/fonts/Mulish-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C8DC85CCB9BF454E9076458A /* Mulish-Regular.ttf */ = {isa = PBXFileReference; name = "Mulish-Regular.ttf"; path = "../src/assets/fonts/Mulish-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C264F9A1CB0F4C09A0035833 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +72,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0047DB403D764FE9B1571CDD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63524796074E48C4A72FB08B /* Mulish-Bold.ttf */,
+				C8DC85CCB9BF454E9076458A /* Mulish-Regular.ttf */,
+				C264F9A1CB0F4C09A0035833 /* Roboto-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		00E356EF1AD99517003FC87E /* githubusersTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,17 +165,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		0047DB403D764FE9B1571CDD /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				63524796074E48C4A72FB08B /* Mulish-Bold.ttf */,
-				C8DC85CCB9BF454E9076458A /* Mulish-Regular.ttf */,
-				C264F9A1CB0F4C09A0035833 /* Roboto-Regular.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
