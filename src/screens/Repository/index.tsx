@@ -9,7 +9,7 @@ import EmptyList from '../../components/EmptyList';
 import Loader from '../../components/Loader';
 import InputSearch from '../../components/Search/Input';
 import FilterButton from '../../components/Search/FilterButton';
-import {Modal} from 'react-native';
+import {Modal, View} from 'react-native';
 import TopicSelector from '../../components/TopicSelector';
 
 interface RepositoryRouteParams {
@@ -68,33 +68,34 @@ export default function Repository() {
   }
 
   return (
-    <Container modalIsOpen={visibleModal}>
-      <HeaderWithUser avatar_url={avatar_url} />
-      <SearchArea>
-        <InputSearch
-          icon="search"
-          placeholder="Buscar um repositório..."
-          onChangeText={name => filterRepositories(name)}
-        />
-        <FilterButton onPress={() => setVisibleModal(true)} />
-      </SearchArea>
-      <RepositoriesList
-        data={repositoriesCopy}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => <RepoCard repository={item} />}
-        ListEmptyComponent={
-          <EmptyList message="Nenhum repositório encontrado" />
-        }
-      />
-
-      <Modal visible={visibleModal} transparent animationType="slide">
-        <ModalContent>
-          <TopicSelector
-            cancelAction={handleCancelTopicSelection}
-            confirmAction={topics => handleFilterTopics(topics)}
+    <View style={{flex: 1, opacity: visibleModal ? 0.6 : 1}}>
+      <Container>
+        <HeaderWithUser avatar_url={avatar_url} />
+        <SearchArea>
+          <InputSearch
+            icon="search"
+            placeholder="Buscar um repositório..."
+            onChangeText={name => filterRepositories(name)}
           />
-        </ModalContent>
-      </Modal>
-    </Container>
+          <FilterButton onPress={() => setVisibleModal(true)} />
+        </SearchArea>
+        <RepositoriesList
+          data={repositoriesCopy}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => <RepoCard repository={item} />}
+          ListEmptyComponent={
+            <EmptyList message="Nenhum repositório encontrado" />
+          }
+        />
+      </Container>
+      <Modal visible={visibleModal} transparent animationType="slide">
+      <ModalContent>
+        <TopicSelector
+          cancelAction={handleCancelTopicSelection}
+          confirmAction={topics => handleFilterTopics(topics)}
+        />
+      </ModalContent>
+    </Modal>
+   </View>
   );
 }

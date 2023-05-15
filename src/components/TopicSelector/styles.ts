@@ -10,7 +10,6 @@ export const Container = styled.View`
 `;
 
 export const Title = styled.Text`
-  line-height: 20px;
   color: ${({theme}) => theme.colors.primary};
   font-family: ${({theme}) => theme.fonts.primary.bold};
   font-size: 22px;

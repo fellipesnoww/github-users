@@ -2,17 +2,13 @@ import {FlatList, Platform} from 'react-native';
 import styled from 'styled-components/native';
 import {RepositoryDTO} from '../../dtos/RepositoryDTO';
 
-interface ContainerProps {
-  modalIsOpen: boolean;
-}
 
-export const Container = styled.View<ContainerProps>`
+export const Container = styled.View`
   justify-content: flex-start;
   background-color: ${({theme}) => theme.colors.background};
   align-items: flex-start;
-  width: 100%;
   flex: 1;
-  padding-top: ${Platform.OS === 'android' ? '10px' : '40px'};
+  padding-top: ${Platform.OS === 'android' ? '10px' : '30px'};
 `;
 
 export const RepositoriesList = styled(FlatList<RepositoryDTO>).attrs({})`
@@ -38,4 +34,5 @@ export const ModalContent = styled.View`
   justify-content: center;
   padding-horizontal: 16px;
   background-color: transparent;
+
 `;
