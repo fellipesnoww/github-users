@@ -34,7 +34,7 @@ yarn start
 ```
 
 ## Checklist de tecnologias necessárias para conclusão do plano de desenvolvimento
-- [ ] styled-components
-- [ ] Sentry
+- [ x ] styled-components
+- [ x ] Sentry
 - [ ] Firebase: Crashlytics
 
