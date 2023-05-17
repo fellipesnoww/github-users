@@ -1,5 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosError} from 'axios';
 import {API_URL} from '@env';
+import * as Sentry from '@sentry/react-native';
 
 interface HTTPResponse {
   success: boolean;
@@ -35,6 +36,8 @@ export async function apiCall<T>(
 
     return defaultError;
   } catch (error) {
+    Sentry.captureMessage("Error on sending request");
+    Sentry.captureException(error);
     if (error instanceof AxiosError) {
       return {
         success: false,
@@ -43,7 +46,7 @@ export async function apiCall<T>(
         data: null,
       };
     }
-
+    
     return defaultError;
   }
 }

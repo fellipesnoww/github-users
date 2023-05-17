@@ -4,6 +4,7 @@ import {USERS_STORAGE_KEY} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 import {apiCall} from '../services/api';
+import * as Sentry from '@sentry/react-native';
 
 interface UsersContextData {
   users: UserDTO[];
@@ -27,11 +28,16 @@ function UsersProvider({children}: UsersProviderData) {
   const [loadingUsers, setLoadingUsers] = useState(true);
 
   async function getStorageUsers() {
-    const storageUsers = await AsyncStorage.getItem(USERS_STORAGE_KEY);
-    if (storageUsers) {
-      setUsers(JSON.parse(storageUsers) as UserDTO[]);
+    try {
+      const storageUsers = await AsyncStorage.getItem(USERS_STORAGE_KEY);
+      if (storageUsers) {
+        setUsers(JSON.parse(storageUsers) as UserDTO[]);
+      }
+      setLoadingUsers(false);
+    } catch (error) {
+      Sentry.captureMessage('Error on get storaged users');
+      Sentry.captureException(error);
     }
-    setLoadingUsers(false);
   }
 
   useEffect(() => {
@@ -47,43 +53,53 @@ function UsersProvider({children}: UsersProviderData) {
     successCallback?: () => void,
     errorCallback?: () => void,
   ): Promise<void> {
-    if (!checkUserAlreadyAdded(login)) {
-      const githubResponse = await apiCall<UserDTO>({
-        url: `users/${login}`,
-        method: 'GET',
-      });
+    try {
+      if (!checkUserAlreadyAdded(login)) {
+        const githubResponse = await apiCall<UserDTO>({
+          url: `users/${login}`,
+          method: 'GET',
+        });
 
-      if (githubResponse.success) {
-        const newUserList = [...users, githubResponse.data];
-        setUsers(newUserList);
-        await AsyncStorage.setItem(
-          USERS_STORAGE_KEY,
-          JSON.stringify(newUserList),
-        );
-        if (successCallback) {
-          successCallback();
+        if (githubResponse.success) {
+          const newUserList = [...users, githubResponse.data];
+          setUsers(newUserList);
+          await AsyncStorage.setItem(
+            USERS_STORAGE_KEY,
+            JSON.stringify(newUserList),
+          );
+          if (successCallback) {
+            successCallback();
+          }
+        } else {
+          Alert.alert('Erro', githubResponse.message);
+          if (errorCallback) {
+            errorCallback();
+          }
         }
       } else {
-        Alert.alert('Erro', githubResponse.message);
+        Alert.alert('Atenção', 'Esse usuário ja foi adicionado');
         if (errorCallback) {
           errorCallback();
         }
       }
-    } else {
-      Alert.alert('Atenção', 'Esse usuário ja foi adicionado');
-      if (errorCallback) {
-        errorCallback();
-      }
+    } catch (error) {
+      Sentry.captureMessage('Error on set user in storage');
+      Sentry.captureException(error);
     }
   }
 
   async function removeUser(id: number): Promise<void> {
-    const filteredUsers = users.filter(user => user.id !== id);
-    setUsers(filteredUsers);
-    await AsyncStorage.setItem(
-      USERS_STORAGE_KEY,
-      JSON.stringify(filteredUsers),
-    );
+    try {
+      const filteredUsers = users.filter(user => user.id !== id);
+      setUsers(filteredUsers);
+      await AsyncStorage.setItem(
+        USERS_STORAGE_KEY,
+        JSON.stringify(filteredUsers),
+      );
+    } catch (error) {
+      Sentry.captureMessage('Error on remove user from storage');
+      Sentry.captureException(error);
+    }
   }
 
   return (
