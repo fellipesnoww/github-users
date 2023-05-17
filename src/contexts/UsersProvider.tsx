@@ -4,8 +4,7 @@ import {USERS_STORAGE_KEY} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 import {apiCall} from '../services/api';
-import * as Sentry from '@sentry/react-native';
-
+import { useEventLog } from '../hooks/useEventLog';
 interface UsersContextData {
   users: UserDTO[];
   addUser: (
@@ -26,6 +25,7 @@ const UsersContext = createContext<UsersContextData>({} as UsersContextData);
 function UsersProvider({children}: UsersProviderData) {
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
+  const {sendErrorEvent} = useEventLog();
 
   async function getStorageUsers() {
     try {
@@ -35,8 +35,7 @@ function UsersProvider({children}: UsersProviderData) {
       }
       setLoadingUsers(false);
     } catch (error) {
-      Sentry.captureMessage('Error on get storaged users');
-      Sentry.captureException(error);
+      sendErrorEvent('Error on get storaged users', error);
     }
   }
 
@@ -83,8 +82,7 @@ function UsersProvider({children}: UsersProviderData) {
         }
       }
     } catch (error) {
-      Sentry.captureMessage('Error on set user in storage');
-      Sentry.captureException(error);
+      sendErrorEvent('Error on set user in storage', error);
     }
   }
 
@@ -97,8 +95,7 @@ function UsersProvider({children}: UsersProviderData) {
         JSON.stringify(filteredUsers),
       );
     } catch (error) {
-      Sentry.captureMessage('Error on remove user from storage');
-      Sentry.captureException(error);
+      sendErrorEvent('Error on remove user from storage', error);
     }
   }
 
