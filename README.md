@@ -38,3 +38,6 @@ yarn start
 - [x] Sentry
 - [x] Firebase: Crashlytics
 
+## Plus
+- [x] Splash screen, icone do app e nome de exibição;
+- [ ] Testes com Jest e react native testing library;
