@@ -40,7 +40,7 @@ export default function RepoCard({repository}: RepoCardProps) {
       </InlineContent>
       <AboutRepo>{repository.description}</AboutRepo>
       {repository.topics.length > 0 && (
-        <TopicList>
+        <TopicList testID='topic-list'>
           {repository.topics.map(topic => (
             <Topic name={topic} typeAction={TypeAction.none} key={topic} />
           ))}
