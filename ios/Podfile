@@ -28,6 +28,7 @@ target 'githubusers' do
   flags = get_default_flags()
   use_frameworks! :linkage => :static
   $RNFirebaseAsStaticFramework = true
+  pod 'RNBootSplash', :path => '../node_modules/react-native-bootsplash'
 
   use_react_native!(
     :path => config[:reactNativePath],

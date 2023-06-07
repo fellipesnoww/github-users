@@ -5,13 +5,19 @@ import {APP_THEME} from './src/global/styles/theme';
 import Routes from './src/routes';
 import {UsersProvider} from './src/contexts/UsersProvider';
 import * as Sentry from '@sentry/react-native';
-import crashlytics from '@react-native-firebase/crashlytics';
+
+import RNBootSplash from "react-native-bootsplash";
 
 Sentry.init({ 
   dsn: 'https://79b659b980e94e60bd6dbeee92a7c0bf@o4505196482527232.ingest.sentry.io/4505196482592768',
 });
 
 function App(): JSX.Element {
+  useEffect(() => {
+    console.log("App mounted")
+    RNBootSplash.hide({duration: 1000, fade: true})
+  },[]);
+
   return (
     <ThemeProvider theme={APP_THEME}>
       <UsersProvider>
