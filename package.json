@@ -56,7 +56,14 @@
       "\\.(png|jpg|ico|jpeg|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mock__/ImageMock.tsx"
     },
     "setupFiles": [
-      "<rootDir>/__mock__/@react-native-async-storage/async-storage.js"
+      "<rootDir>/__mock__/@react-native-async-storage/async-storage.js",
+      "<rootDir>/__mock__/@sentry/sentry-react-native.js",
+      "<rootDir>/__mock__/@react-native-firebase/app.js",
+      "<rootDir>/__mock__/@react-native-firebase/crashlytics.js",
+      "<rootDir>/__mock__/react-native-splash-screen/splash-screen.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)"
     ]
   }
 }
