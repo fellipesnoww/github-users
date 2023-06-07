@@ -78,7 +78,7 @@ export default function UserCard({user}: UserCardProps) {
             <Username>{user.login}</Username>
           </UserIdentifier>
         </TextContent>
-        <DeleteButton onPress={handleRemoveUser}>
+        <DeleteButton testID='remove-user-button' onPress={handleRemoveUser}>
           <Delete />
         </DeleteButton>
       </UserBasicInfo>
