@@ -36,6 +36,7 @@ function UsersProvider({children}: UsersProviderData) {
       setLoadingUsers(false);
     } catch (error) {
       sendErrorEvent('Error on get storaged users', error);
+      setLoadingUsers(false);
     }
   }
 
