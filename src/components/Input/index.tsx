@@ -2,9 +2,9 @@ import React from 'react';
 import {Container, TextInput} from './styles';
 import UserIcon from '../../assets/icons/account_circle.svg';
 import {useTheme} from 'styled-components';
-import {TextInputProperties} from 'react-native';
+import {TextInputProps} from 'react-native';
 
-interface InputProps extends TextInputProperties {
+interface InputProps extends TextInputProps {
   icon?: string;
 }
 
