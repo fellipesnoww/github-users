@@ -82,6 +82,7 @@ export default function Register({showBackAction = false}: RegisterProps) {
               text="Cadastrar"
               onPress={handleAddNewUser}
               loading={loading}
+              disabled={!username}
             />
           </Container>
         </TouchableWithoutFeedback>
