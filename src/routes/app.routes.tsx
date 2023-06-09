@@ -7,9 +7,10 @@ import Register from '../screens/Register';
 import Repository from '../screens/Repository';
 import ModalRegister from '../screens/Register/ModalRegister';
 import {useUsers} from '../hooks/useUsers';
+import {RootStackParamList} from '../types/routes/stack';
 
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function AppRoutes() {
   const {users, loadingUsers} = useUsers();
