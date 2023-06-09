@@ -9,7 +9,7 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.zoontek.rnbootsplash.RNBootSplashPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -24,7 +24,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
- 
+          packages.add(new RNBootSplashPackage());
           return packages;
         }
 

@@ -1,5 +1,3 @@
-// In App.js in a new project
-
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/Home';
@@ -7,21 +5,19 @@ import Register from '../screens/Register';
 import Repository from '../screens/Repository';
 import ModalRegister from '../screens/Register/ModalRegister';
 import {useUsers} from '../hooks/useUsers';
-import SplashScreen from 'react-native-splash-screen';
+import {RootStackParamList} from '../types/routes/stack';
+import Loader from '../components/Loader';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function AppRoutes() {
   const {users, loadingUsers} = useUsers();
 
-  if (loadingUsers) {
-    SplashScreen.show();
-    return null;
-  } else {
-    SplashScreen.hide();
-  }
-
   const initialRouteName = users.length > 0 ? 'Home' : 'Register';
+
+  if (loadingUsers) {
+    return <Loader message="Buscando informações" />;
+  }
 
   return (
     <Stack.Navigator
