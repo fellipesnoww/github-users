@@ -38,3 +38,13 @@ yarn start
 - [x] Sentry
 - [x] Firebase: Crashlytics
 
+- [ ] Fluxo de CI/CD
+- [x] Ofuscação de código
+
+
+## Plus
+- [ ] Testes com jest e react-native-testing-library
+- [x] Configuração de Splashscreen
+- [x] Configuração de Icone do app
+- [x] Configuração do display name
+

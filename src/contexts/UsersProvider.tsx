@@ -4,7 +4,7 @@ import {USERS_STORAGE_KEY} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 import {apiCall} from '../services/api';
-
+import {useEventLog} from '../hooks/useEventLog';
 interface UsersContextData {
   users: UserDTO[];
   addUser: (
@@ -25,13 +25,26 @@ const UsersContext = createContext<UsersContextData>({} as UsersContextData);
 function UsersProvider({children}: UsersProviderData) {
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
+  const {sendErrorEvent} = useEventLog();
+
+  const errorNotFoundGitHub = {
+    success: false,
+    message: 'Usuário não encontrado',
+    httpStatus: 404,
+    data: null,
+  };
 
   async function getStorageUsers() {
-    const storageUsers = await AsyncStorage.getItem(USERS_STORAGE_KEY);
-    if (storageUsers) {
-      setUsers(JSON.parse(storageUsers) as UserDTO[]);
+    try {
+      const storageUsers = await AsyncStorage.getItem(USERS_STORAGE_KEY);
+      if (storageUsers) {
+        setUsers(JSON.parse(storageUsers) as UserDTO[]);
+      }
+      setLoadingUsers(false);
+    } catch (error) {
+      sendErrorEvent('Error on get storaged users', error);
+      setLoadingUsers(false);
     }
-    setLoadingUsers(false);
   }
 
   useEffect(() => {
@@ -47,43 +60,54 @@ function UsersProvider({children}: UsersProviderData) {
     successCallback?: () => void,
     errorCallback?: () => void,
   ): Promise<void> {
-    if (!checkUserAlreadyAdded(login)) {
-      const githubResponse = await apiCall<UserDTO>({
-        url: `users/${login}`,
-        method: 'GET',
-      });
-
-      if (githubResponse.success) {
-        const newUserList = [...users, githubResponse.data];
-        setUsers(newUserList);
-        await AsyncStorage.setItem(
-          USERS_STORAGE_KEY,
-          JSON.stringify(newUserList),
+    try {
+      if (!checkUserAlreadyAdded(login)) {
+        const githubResponse = await apiCall<UserDTO>(
+          {
+            url: `users/${login}`,
+            method: 'GET',
+          },
+          errorNotFoundGitHub,
         );
-        if (successCallback) {
-          successCallback();
+
+        if (githubResponse.success) {
+          const newUserList = [...users, githubResponse.data];
+          setUsers(newUserList);
+          await AsyncStorage.setItem(
+            USERS_STORAGE_KEY,
+            JSON.stringify(newUserList),
+          );
+          if (successCallback) {
+            successCallback();
+          }
+        } else {
+          Alert.alert('Erro', githubResponse.message);
+          if (errorCallback) {
+            errorCallback();
+          }
         }
       } else {
-        Alert.alert('Erro', githubResponse.message);
+        Alert.alert('Atenção', 'Esse usuário ja foi adicionado');
         if (errorCallback) {
           errorCallback();
         }
       }
-    } else {
-      Alert.alert('Atenção', 'Esse usuário ja foi adicionado');
-      if (errorCallback) {
-        errorCallback();
-      }
+    } catch (error) {
+      sendErrorEvent('Error on set user in storage', error);
     }
   }
 
   async function removeUser(id: number): Promise<void> {
-    const filteredUsers = users.filter(user => user.id !== id);
-    setUsers(filteredUsers);
-    await AsyncStorage.setItem(
-      USERS_STORAGE_KEY,
-      JSON.stringify(filteredUsers),
-    );
+    try {
+      const filteredUsers = users.filter(user => user.id !== id);
+      setUsers(filteredUsers);
+      await AsyncStorage.setItem(
+        USERS_STORAGE_KEY,
+        JSON.stringify(filteredUsers),
+      );
+    } catch (error) {
+      sendErrorEvent('Error on remove user from storage', error);
+    }
   }
 
   return (

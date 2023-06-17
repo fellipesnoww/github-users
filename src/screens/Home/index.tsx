@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Container, UserList} from './styles';
 import Header from '../../components/Header';
 import UserCard from '../../components/UserCard';
