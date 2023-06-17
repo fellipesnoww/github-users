@@ -4,7 +4,7 @@ import {USERS_STORAGE_KEY} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 import {apiCall} from '../services/api';
-import { useEventLog } from '../hooks/useEventLog';
+import {useEventLog} from '../hooks/useEventLog';
 interface UsersContextData {
   users: UserDTO[];
   addUser: (
@@ -26,6 +26,13 @@ function UsersProvider({children}: UsersProviderData) {
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const {sendErrorEvent} = useEventLog();
+
+  const errorNotFoundGitHub = {
+    success: false,
+    message: 'Usuário não encontrado',
+    httpStatus: 404,
+    data: null,
+  };
 
   async function getStorageUsers() {
     try {
@@ -55,10 +62,13 @@ function UsersProvider({children}: UsersProviderData) {
   ): Promise<void> {
     try {
       if (!checkUserAlreadyAdded(login)) {
-        const githubResponse = await apiCall<UserDTO>({
-          url: `users/${login}`,
-          method: 'GET',
-        });
+        const githubResponse = await apiCall<UserDTO>(
+          {
+            url: `users/${login}`,
+            method: 'GET',
+          },
+          errorNotFoundGitHub,
+        );
 
         if (githubResponse.success) {
           const newUserList = [...users, githubResponse.data];
