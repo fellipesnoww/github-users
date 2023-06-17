@@ -8,7 +8,7 @@ export const Container = styled.View`
   align-items: flex-start;
   width: 100%;
   flex: 1;
-  padding-top: ${Platform.OS === 'android' ? '10px' : '40px'};
+  padding-top: ${Platform.OS === 'android' ? '20px' : '40px'};
 `;
 
 export const UserList = styled(FlatList<UserDTO>).attrs({})`
