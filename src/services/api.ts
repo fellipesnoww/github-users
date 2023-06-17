@@ -21,7 +21,7 @@ const defaultError = {
   data: null,
 };
 
-function sendErrors(message: string, error: any){
+function sendErrors(message: string, error: any) {
   Sentry.captureMessage(message);
   Sentry.captureException(error);
   crashlytics().log(message);
@@ -30,6 +30,7 @@ function sendErrors(message: string, error: any){
 
 export async function apiCall<T>(
   config: AxiosRequestConfig,
+  customError?: HTTPResponse,
 ): Promise<HTTPResponse> {
   try {
     const response = await api.request<T>(config);
@@ -44,7 +45,12 @@ export async function apiCall<T>(
 
     return defaultError;
   } catch (error) {
-    sendErrors("Error on sending request", error);
+    sendErrors('Error on sending request', error);
+
+    if (customError) {
+      return customError;
+    }
+
     if (error instanceof AxiosError) {
       return {
         success: false,
@@ -53,7 +59,7 @@ export async function apiCall<T>(
         data: null,
       };
     }
-    
+
     return defaultError;
   }
 }
