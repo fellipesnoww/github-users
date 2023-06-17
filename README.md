@@ -37,8 +37,9 @@ yarn start
 - [x] styled-components
 - [x] Sentry
 - [x] Firebase: Crashlytics
-- [ ] Fluxo de CD/CI
-- [ ] Ofuscação de código
+
+- [ ] Fluxo de CI/CD
+- [x] Ofuscação de código
 
 
 ## Plus
@@ -46,3 +47,4 @@ yarn start
 - [x] Configuração de Splashscreen
 - [x] Configuração de Icone do app
 - [x] Configuração do display name
+
