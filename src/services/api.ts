@@ -1,7 +1,6 @@
 import axios, {AxiosRequestConfig, AxiosError} from 'axios';
 import {API_URL} from '@env';
-import * as Sentry from '@sentry/react-native';
-import crashlytics from '@react-native-firebase/crashlytics';
+import {sendErrorEvent} from './eventLogService';
 
 interface HTTPResponse {
   success: boolean;
@@ -21,12 +20,6 @@ const defaultError = {
   data: null,
 };
 
-function sendErrors(message: string, error: any) {
-  Sentry.captureMessage(message);
-  Sentry.captureException(error);
-  crashlytics().log(message);
-  crashlytics().recordError(error);
-}
 
 export async function apiCall<T>(
   config: AxiosRequestConfig,
@@ -45,7 +38,7 @@ export async function apiCall<T>(
 
     return defaultError;
   } catch (error) {
-    sendErrors('Error on sending request', error);
+    sendErrorEvent('Error on sending request', error);
 
     if (customError) {
       return customError;
