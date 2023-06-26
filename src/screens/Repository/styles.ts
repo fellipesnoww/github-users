@@ -8,7 +8,7 @@ export const Container = styled.View`
   background-color: ${({theme}) => theme.colors.background};
   align-items: flex-start;
   flex: 1;
-  padding-top: ${Platform.OS === 'android' ? '10px' : '30px'};
+  padding-top: ${Platform.OS === 'android' ? '30px' : '40px'};
 `;
 
 export const RepositoriesList = styled(FlatList<RepositoryDTO>).attrs({})`

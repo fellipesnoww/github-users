@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  justify-content: center;
+  justify-content: flex-start;
   background-color: ${({theme}) => theme.colors.background};
   padding: 60px 40px 32px 40px;
   align-items: flex-start;
@@ -13,6 +13,7 @@ export const LogoContainer = styled.View`
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-top: 80px;
   margin-bottom: 80px;
 `;
 
