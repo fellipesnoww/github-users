@@ -17,6 +17,7 @@ import {
   Footer,
   UnderlinedDescription,
   BackButton,
+  Content,
 } from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {useUsers} from '../../hooks/useUsers';
@@ -47,14 +48,8 @@ export default function Register({showBackAction = false}: RegisterProps) {
   }
 
   return (
-    <>
-      <KeyboardAvoidingView
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-        behavior="height">
+    <Content>
+      <KeyboardAvoidingView behavior="position">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <Container>
             {showBackAction && (
@@ -93,6 +88,6 @@ export default function Register({showBackAction = false}: RegisterProps) {
         <Description>e </Description>
         <UnderlinedDescription>privacidade</UnderlinedDescription>
       </Footer>
-    </>
+    </Content>
   );
 }
