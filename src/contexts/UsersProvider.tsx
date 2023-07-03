@@ -4,7 +4,8 @@ import {USERS_STORAGE_KEY} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Alert} from 'react-native';
 import {apiCall} from '../services/api';
-import {useEventLog} from '../hooks/useEventLog';
+import {sendErrorEvent} from '../services/eventLogService';
+
 interface UsersContextData {
   users: UserDTO[];
   addUser: (
@@ -25,7 +26,6 @@ const UsersContext = createContext<UsersContextData>({} as UsersContextData);
 function UsersProvider({children}: UsersProviderData) {
   const [users, setUsers] = useState<UserDTO[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
-  const {sendErrorEvent} = useEventLog();
 
   const errorNotFoundGitHub = {
     success: false,
